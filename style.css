@@ -1,7 +1,17 @@
-body {
+* {
+  font-family: 'Open Sans', sans-serif;
+  /* outline: 1px dotted green; */
+}
+
+.title {
+  text-align: center;
+  font-size: 50px;
+  font-weight: 700;
+  margin: 40px 0 0;
+}
+
+.knockouts {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
 }
 
@@ -10,28 +20,69 @@ body {
 }
 
 [data-win='true'][data-played='true'] {
-  border: 1px solid red;
+  border: 1px dashed #b0003a;
+  color: #b0003a;
 }
 
 [data-win='false'][data-played='true'] {
   transform: scale(0.6);
+  border: 1px dashed #999;
   color: #999;
+  opacity: 0.5;
 }
 
 [data-key] {
-  height: 70px;
-  width: 70px;
-  border-radius: 9999px;
-  border: 1px dotted #999;
+  height: 50px;
+  width: 50px;
+  border: 1px dashed #999;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   transition: all 300ms ease;
+  margin: 10px auto;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .phase {
+  margin: 0 30px;
+}
+
+.phase--quartas,
+.phase--semi,
+.phase--final,
+.phase--campeao {
   display: flex;
-  flex: 1 1 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  flex: 0;
+}
+
+.confront {
+  margin: 10px 0;
+}
+
+.confront--oitavas {
+  margin: 50px 0;
+}
+
+.confront--oitavas:first-child,
+.confront--oitavas:last-child {
+  margin: 0;
+}
+
+.confront--quartas {
+  height: 38%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+.confront--semi {
+  height: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
 }
 
