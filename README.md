@@ -1,2 +1,2 @@
-# binary-tree-knockouts
-Knockout standings implemented with a binary tree data structure.
+# heap-like-knockouts
+Knockout standings implemented with a heap data structure.
