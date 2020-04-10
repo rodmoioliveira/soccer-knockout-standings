@@ -24,6 +24,13 @@
   color: #b0003a;
 }
 
+#id0[data-win='true'][data-played='true'] {
+  border: 1px dashed #b0003a;
+  color: #b0003a;
+  transform: translateY(-300%) scale(2) rotate(360deg);
+  transition: all 1000ms ease;
+}
+
 [data-win='false'][data-played='true'] {
   transform: scale(0.6);
   border: 1px dashed #999;
