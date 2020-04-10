@@ -1,6 +1,11 @@
+:root {
+  --trajectory: green;
+  --winner: #e84a64;
+  --loser: #999;
+}
+
 * {
   font-family: 'Open Sans', sans-serif;
-  /* outline: 1px dotted green; */
 }
 
 .title {
@@ -20,28 +25,33 @@
 }
 
 [data-win='true'][data-played='true'] {
-  border: 1px dashed #b0003a;
-  color: #b0003a;
+  border: 1px dashed var(--winner);
+  color: var(--winner);
+}
+
+[data-win='true'][data-played='true'][data-trajectory] {
+  border: 1px dashed var(--trajectory);
+  color: var(--trajectory);
 }
 
 #id0[data-win='true'][data-played='true'] {
-  border: 1px dashed #b0003a;
-  color: #b0003a;
+  border: 1px dashed var(--trajectory);
+  color: var(--trajectory);
   transform: translateY(-300%) scale(2) rotate(360deg);
   transition: all 600ms ease;
 }
 
 [data-win='false'][data-played='true'] {
   transform: scale(0.6);
-  border: 1px dashed #999;
-  color: #999;
+  border: 1px dashed var(--loser);
+  color: var(--loser);
   opacity: 0.5;
 }
 
 [data-key] {
   height: 50px;
   width: 50px;
-  border: 1px dashed #999;
+  border: 1px dashed var(--loser);
   display: flex;
   align-items: center;
   justify-content: center;

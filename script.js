@@ -19,6 +19,8 @@ const sibling = i => {
   }
   return i % 2 === 0 ? i - 1 : i + 1;
 };
+const left = i => (i << 1) + 1;
+const right = i => (i << 1) + 2;
 const team = name => ({ name, win: false, played: false });
 const positions = {
   campeao: 0,
@@ -89,6 +91,34 @@ const mataMata = [
 ].map((pos, i) => {
   return { ...pos, el: document.getElementById(`id${i}`) };
 });
+let prevTrajectory = [];
+let trajectory = [];
+
+const getTrajectory = key => {
+  let index = positions[key];
+  const { name } = mataMata[index];
+  if (name) {
+    const t = mataMata
+      .map((team, i) => {
+        if (team.name === name) {
+          return i;
+        }
+      })
+      .filter(v => v);
+    if (trajectory.length) {
+      prevTrajectory = trajectory;
+    }
+    trajectory = t;
+  }
+};
+
+const displayTrajectory = i => {
+  mataMata[i].el.setAttribute('data-trajectory', '');
+};
+
+const removeTrajectory = i => {
+  mataMata[i].el.removeAttribute('data-trajectory');
+};
 
 const setTrail = key => {
   let index = positions[key];
@@ -177,6 +207,9 @@ of(...[...document.querySelectorAll('[data-key]')])
     if (val.position) {
       toogleWinner(val.position);
       setTrail(val.position);
+      getTrajectory('campeao');
+      prevTrajectory.forEach(removeTrajectory);
+      trajectory.forEach(displayTrajectory);
     }
     render(mataMata);
   });
