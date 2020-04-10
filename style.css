@@ -28,7 +28,7 @@
   border: 1px dashed #b0003a;
   color: #b0003a;
   transform: translateY(-300%) scale(2) rotate(360deg);
-  transition: all 1000ms ease;
+  transition: all 600ms ease;
 }
 
 [data-win='false'][data-played='true'] {
@@ -50,6 +50,7 @@
   margin: 10px auto;
   font-size: 14px;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .phase {
