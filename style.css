@@ -12,7 +12,6 @@
   text-align: center;
   font-size: 50px;
   font-weight: 700;
-  margin: 40px 0 0;
 }
 
 .knockouts {
@@ -56,7 +55,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  transition: all 300ms ease;
+  transition: transform 300ms ease;
   margin: 10px auto;
   font-size: 14px;
   font-weight: 700;
@@ -102,5 +101,29 @@
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
+}
+
+@media (max-width: 1000px) {
+  .phase {
+    margin: 0 1vw;
+  }
+
+  [data-key] {
+    height: 8.5vw;
+    width: 8.5vw;
+    font-size: 2vw;
+  }
+
+  .confront--oitavas {
+    margin: 4vw 0;
+  }
+
+  .confront--semi {
+    height: 64%;
+  }
+
+  .title {
+    font-size: 10vw;
+  }
 }
 
