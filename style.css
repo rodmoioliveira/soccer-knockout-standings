@@ -26,11 +26,13 @@
 [data-win='true'][data-played='true'] {
   border: 1px dashed var(--winner);
   color: var(--winner);
+  transform: scale(0.8);
 }
 
 [data-win='true'][data-played='true'][data-trajectory] {
   border: 1px dashed var(--trajectory);
   color: var(--trajectory);
+  transform: scale(1.1);
 }
 
 #id0[data-win='true'][data-played='true'] {
@@ -41,7 +43,7 @@
 }
 
 [data-win='false'][data-played='true'] {
-  transform: scale(0.6);
+  transform: scale(0.8);
   border: 1px dashed var(--loser);
   color: var(--loser);
   opacity: 0.5;
