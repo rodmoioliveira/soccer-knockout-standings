@@ -96,19 +96,29 @@ let trajectory = [];
 
 const getTrajectory = key => {
   let index = positions[key];
-  const { name } = mataMata[index];
-  if (name) {
-    const t = mataMata
-      .map((team, i) => {
-        if (team.name === name) {
-          return i;
-        }
-      })
-      .filter(v => v);
+  let path = [index];
+  const { name: winner } = mataMata[index];
+
+  if (winner) {
+    while (right(index) < mataMata.length || left(index) < mataMata.length) {
+      const l = mataMata[left(index)];
+      const r = mataMata[right(index)];
+
+      if (l.name === winner) {
+        index = left(index);
+        path.push(index);
+      }
+
+      if (r.name === winner) {
+        index = right(index);
+        path.push(index);
+      }
+    }
+
     if (trajectory.length) {
       prevTrajectory = trajectory;
     }
-    trajectory = t;
+    trajectory = path;
   }
 };
 
@@ -213,4 +223,3 @@ of(...[...document.querySelectorAll('[data-key]')])
     }
     render(mataMata);
   });
-
