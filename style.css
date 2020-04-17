@@ -1,14 +1,53 @@
+/* ======================================== */
+/* Constantes */
+/* ======================================== */
+
 :root {
   --base-color: #111;
   --trajectory: green;
   --winner: #e84a64;
-  --loser: #ccc;
-  --border-width: 2px;
-  --height: 40px;
-  --width: 130px;
+  --loser: #ddd;
+  --border-width: 1px;
+  --team-height: 40px;
+  --team-width: 130px;
+  --heap-height: 40px;
+  --heap-width: 40px;
   --background: white;
   --phase-margin: 10px;
+  --indexes-font-size: 20px;
+  --teams-font-size: 18px;
+  --title-font-size: 3.5rem;
+  --title-margin: 1.5rem;
+  --animation-duration: 300ms;
 }
+
+@media (min-width: 768px) {
+  :root {
+    --team-height: 2vw;
+    --team-width: 8vw;
+    --teams-font-size: 1vw;
+    --heap-height: 2vw;
+    --heap-width: 2vw;
+    --indexes-font-size: 1.1vw;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --team-height: 6vw;
+    --team-width: 9vw;
+    --teams-font-size: 1.3vw;
+    --heap-height: 3vw;
+    --heap-width: 3vw;
+    --indexes-font-size: 2vw;
+    --title-font-size: 7vw;
+    --title-margin: 4vw;
+  }
+}
+
+/* ======================================== */
+/* Textos */
+/* ======================================== */
 
 * {
   font-family: 'Open Sans', sans-serif;
@@ -16,16 +55,15 @@
 
 .title {
   text-align: center;
-  font-size: 50px;
+  font-size: var(--title-font-size);
   font-weight: 700;
   line-height: 1;
-  margin: 0.9rem auto;
+  margin: var(--title-margin) auto;
 }
 
-.knockouts {
-  display: flex;
-  justify-content: center;
-}
+/* ======================================== */
+/* Representação do Heap */
+/* ======================================== */
 
 .indexes {
   margin-top: 15px;
@@ -44,31 +82,31 @@
 
 [data-index-key],
 [data-array-key] {
-  height: 40px;
-  width: 40px;
+  height: var(--heap-height);
+  width: var(--heap-width);
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid transparent;
+  border: var(--border-width) solid transparent;
   border-left: none;
-  transition: background 300ms ease;
-  font-size: 20px;
+  transition: background var(--animation-duration) ease;
+  font-size: var(--indexes-font-size);
   font-weight: 700;
 }
 
 [data-index-key]:first-child {
-  border: 2px solid transparent;
+  border: var(--border-width) solid transparent;
 }
 
 [data-array-key] {
-  border: 2px solid #111 !important;
+  border: var(--border-width) solid #111 !important;
   border-left: none !important;
   cursor: pointer;
 }
 
 [data-array-key]:first-child {
-  border-left: 2px solid #111 !important;
+  border-left: var(--border-width) solid #111 !important;
 }
 
 [data-array-key][data-win='false'][data-played='true'] {
@@ -83,16 +121,33 @@
   background-color: var(--trajectory);
 }
 
+/* ======================================== */
+/* Mata-mata e blocos */
+/* ======================================== */
+
+.knockouts {
+  display: flex;
+  justify-content: center;
+}
+
+.phase {
+  margin: 0 var(--phase-margin);
+}
+
 [data-block] {
-  height: var(--height);
-  width: var(--width);
+  height: var(--team-height);
+  width: var(--team-width);
   border: var(--border-width) solid transparent;
 }
 
+/* ======================================== */
+/* Times */
+/* ======================================== */
+
 [data-key] {
   position: relative;
-  height: var(--height);
-  width: var(--width);
+  height: var(--team-height);
+  width: var(--team-width);
   background-color: var(--background);
   border: var(--border-width) solid var(--base-color);
   color: var(--base-color);
@@ -101,8 +156,9 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  transition: transform 300ms ease, color 300ms ease, border 300ms ease;
-  font-size: 18px;
+  transition: transform var(--animation-duration) ease,
+    color var(--animation-duration) ease, border var(--animation-duration) ease;
+  font-size: var(--teams-font-size);
   font-weight: 700;
   cursor: pointer;
 }
@@ -114,6 +170,7 @@
 
 [data-win='false'][data-played='true']:after {
   border-color: var(--loser);
+  transition: all var(--animation-duration) ease;
 }
 
 [data-disable] {
@@ -127,6 +184,7 @@
 
 [data-win='true'][data-played='true']:after {
   border-color: var(--winner);
+  transition: all var(--animation-duration) ease;
 }
 
 [data-win='true'][data-played='true'][data-trajectory] {
@@ -136,11 +194,12 @@
 
 [data-win='true'][data-played='true'][data-trajectory]:after {
   border-color: var(--trajectory);
+  transition: all var(--animation-duration) ease;
 }
 
 #id0 {
   transform: translateY(-300%) scale(1);
-  transition: all 600ms ease;
+  transition: all calc(2 * var(--animation-duration)) ease;
 }
 
 #id0[data-win='true'][data-played='true'] {
@@ -149,12 +208,8 @@
   transform: translateY(-300%) scale(1.5) rotate(360deg);
 }
 
-.phase {
-  margin: 0 var(--phase-margin);
-}
-
 /* ======================================== */
-/* Licação dentre as chaves */
+/* Licação entre as chaves */
 /* ======================================== */
 
 [data-key='oitavas4_time1']:after,
@@ -163,9 +218,9 @@
 [data-key='oitavas1_time1']:after {
   display: block;
   content: '';
-  height: var(--height);
-  width: calc(var(--width) + (2.5 * var(--phase-margin)));
-  border: 2px solid var(--base-color);
+  height: var(--team-height);
+  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  border: var(--border-width) solid var(--base-color);
   border-bottom: none;
   border-left: none;
   position: absolute;
@@ -180,9 +235,9 @@
 [data-key='oitavas1_time2']:after {
   display: block;
   content: '';
-  height: var(--height);
-  width: calc(var(--width) + (2.5 * var(--phase-margin)));
-  border: 2px solid var(--base-color);
+  height: var(--team-height);
+  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  border: var(--border-width) solid var(--base-color);
   border-top: none;
   border-left: none;
   position: absolute;
@@ -197,9 +252,9 @@
 [data-key='oitavas5_time1']:after {
   display: block;
   content: '';
-  height: var(--height);
-  width: calc(var(--width) + (2.5 * var(--phase-margin)));
-  border: 2px solid var(--base-color);
+  height: var(--team-height);
+  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  border: var(--border-width) solid var(--base-color);
   border-bottom: none;
   border-right: none;
   position: absolute;
@@ -214,9 +269,9 @@
 [data-key='oitavas5_time2']:after {
   display: block;
   content: '';
-  height: var(--height);
-  width: calc(var(--width) + (2.5 * var(--phase-margin)));
-  border: 2px solid var(--base-color);
+  height: var(--team-height);
+  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  border: var(--border-width) solid var(--base-color);
   border-top: none;
   border-right: none;
   position: absolute;
@@ -229,9 +284,9 @@
 [data-key='quartas2_time1']:after {
   display: block;
   content: '';
-  height: calc(2 * var(--height));
-  width: calc(var(--width) + (2.5 * var(--phase-margin)));
-  border: 2px solid var(--base-color);
+  height: calc(2 * var(--team-height));
+  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  border: var(--border-width) solid var(--base-color);
   border-bottom: none;
   border-left: none;
   position: absolute;
@@ -244,9 +299,9 @@
 [data-key='quartas2_time2']:after {
   display: block;
   content: '';
-  height: calc(2 * var(--height));
-  width: calc(var(--width) + (2.5 * var(--phase-margin)));
-  border: 2px solid var(--base-color);
+  height: calc(2 * var(--team-height));
+  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  border: var(--border-width) solid var(--base-color);
   border-top: none;
   border-left: none;
   position: absolute;
@@ -259,9 +314,9 @@
 [data-key='quartas4_time1']:after {
   display: block;
   content: '';
-  height: calc(2 * var(--height));
-  width: calc(var(--width) + (2.5 * var(--phase-margin)));
-  border: 2px solid var(--base-color);
+  height: calc(2 * var(--team-height));
+  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  border: var(--border-width) solid var(--base-color);
   border-bottom: none;
   border-right: none;
   position: absolute;
@@ -274,9 +329,9 @@
 [data-key='quartas4_time2']:after {
   display: block;
   content: '';
-  height: calc(2 * var(--height));
-  width: calc(var(--width) + (2.5 * var(--phase-margin)));
-  border: 2px solid var(--base-color);
+  height: calc(2 * var(--team-height));
+  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  border: var(--border-width) solid var(--base-color);
   border-top: none;
   border-right: none;
   position: absolute;
@@ -288,9 +343,9 @@
 [data-key='semifinal2_time1']:after {
   display: block;
   content: '';
-  height: calc(4.25 * var(--height));
-  width: calc(var(--width) + (2.5 * var(--phase-margin)));
-  border: 2px solid var(--base-color);
+  height: calc(4.25 * var(--team-height));
+  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  border: var(--border-width) solid var(--base-color);
   border-bottom: none;
   border-right: none;
   position: absolute;
@@ -302,9 +357,9 @@
 [data-key='semifinal2_time2']:after {
   display: block;
   content: '';
-  height: calc(4.25 * var(--height));
-  width: calc(var(--width) + (2.5 * var(--phase-margin)));
-  border: 2px solid var(--base-color);
+  height: calc(4.25 * var(--team-height));
+  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  border: var(--border-width) solid var(--base-color);
   border-top: none;
   border-right: none;
   position: absolute;
@@ -316,9 +371,9 @@
 [data-key='semifinal1_time1']:after {
   display: block;
   content: '';
-  height: calc(4.25 * var(--height));
-  width: calc(var(--width) + (2.5 * var(--phase-margin)));
-  border: 2px solid var(--base-color);
+  height: calc(4.25 * var(--team-height));
+  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  border: var(--border-width) solid var(--base-color);
   border-bottom: none;
   border-left: none;
   position: absolute;
@@ -330,9 +385,9 @@
 [data-key='semifinal1_time2']:after {
   display: block;
   content: '';
-  height: calc(4.25 * var(--height));
-  width: calc(var(--width) + (2.5 * var(--phase-margin)));
-  border: 2px solid var(--base-color);
+  height: calc(4.25 * var(--team-height));
+  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  border: var(--border-width) solid var(--base-color);
   border-top: none;
   border-left: none;
   position: absolute;
@@ -344,9 +399,10 @@
 [data-key='final_time1']:after {
   display: block;
   content: '';
-  height: calc(3 * var(--height));
-  width: calc(var(--width) / 1.1);
-  border: 2px solid var(--base-color);
+  height: calc(3 * var(--team-height));
+  /* width: calc(var(--team-width) / 1.1); */
+  width: calc(var(--team-width) + var(--phase-margin));
+  border: var(--border-width) solid var(--base-color);
   border-top: none;
   border-left: none;
   position: absolute;
@@ -358,9 +414,9 @@
 [data-key='final_time2']:after {
   display: block;
   content: '';
-  height: calc(3 * var(--height));
-  width: calc(var(--width) / 1.1);
-  border: 2px solid var(--base-color);
+  height: calc(3 * var(--team-height));
+  width: calc(var(--team-width) + var(--phase-margin));
+  border: var(--border-width) solid var(--base-color);
   border-top: none;
   border-right: none;
   position: absolute;
@@ -369,6 +425,13 @@
   z-index: -1;
 }
 
-/* @media (max-width: 1000px) { */
-/* } */
+/* ======================================== */
+/* Rotação do Mata-mata */
+/* ======================================== */
 
+@media (max-width: 768px) {
+  .knockouts {
+    transform: rotate(90deg);
+    margin: 80px auto;
+  }
+}
