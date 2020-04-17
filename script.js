@@ -89,7 +89,11 @@ const mataMata = [
   team('Bangu'),
   team('Portuguesa'),
 ].map((pos, i) => {
-  return { ...pos, el: document.getElementById(`id${i}`) };
+  return {
+    ...pos,
+    el: document.getElementById(`id${i}`),
+    arrayEl: document.getElementById(`array${i}`),
+  };
 });
 let prevTrajectory = [];
 let trajectory = [];
@@ -124,10 +128,12 @@ const getTrajectory = key => {
 
 const displayTrajectory = i => {
   mataMata[i].el.setAttribute('data-trajectory', '');
+  mataMata[i].arrayEl.setAttribute('data-trajectory', '');
 };
 
 const removeTrajectory = i => {
   mataMata[i].el.removeAttribute('data-trajectory');
+  mataMata[i].arrayEl.removeAttribute('data-trajectory');
 };
 
 const setTrail = key => {
@@ -187,6 +193,8 @@ const render = arr => {
     node.el.innerText = node.name;
     node.el.setAttribute('data-win', node.win);
     node.el.setAttribute('data-played', node.played);
+    node.arrayEl.setAttribute('data-win', node.win);
+    node.arrayEl.setAttribute('data-played', node.played);
     node.el.innerText = node.name;
     node.el[
       node.name && arr[sibling(i)].name && i !== 0
@@ -197,18 +205,27 @@ const render = arr => {
     if (i === 0 && node.name) {
       node.el.setAttribute('data-win', true);
       node.el.setAttribute('data-played', true);
+      node.arrayEl.setAttribute('data-win', true);
+      node.arrayEl.setAttribute('data-played', true);
     }
   });
 };
 
-of(...[...document.querySelectorAll('[data-key]')])
+of(
+  ...[...document.querySelectorAll('[data-key]')],
+  ...[...document.querySelectorAll('[data-array-key]')]
+)
   .pipe(
     mergeMap(div =>
       fromEvent(div, 'click').pipe(
-        map(() => ({
-          index: positions[div.getAttribute('data-key')],
-          position: div.getAttribute('data-key'),
-        }))
+        map(() => {
+          const position =
+            div.getAttribute('data-key') || div.getAttribute('data-array-key');
+          return {
+            index: positions[position],
+            position,
+          };
+        })
       )
     ),
     startWith({ position: null })
