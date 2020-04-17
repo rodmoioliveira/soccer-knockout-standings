@@ -5,7 +5,7 @@
   --loser: #ccc;
   --border-width: 2px;
   --height: 40px;
-  --width: 150px;
+  --width: 130px;
   --background: white;
   --phase-margin: 10px;
 }
@@ -16,7 +16,7 @@
 
 .title {
   text-align: center;
-  font-size: 70px;
+  font-size: 50px;
   font-weight: 700;
   line-height: 1;
 }
@@ -24,6 +24,55 @@
 .knockouts {
   display: flex;
   justify-content: center;
+}
+
+.indexes {
+  margin-top: 30px;
+}
+
+.array,
+.indexes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-index-key],
+[data-array-key] {
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-left: none;
+  transition: background 300ms ease;
+}
+
+[data-index-key]:first-child {
+  border: 1px solid transparent;
+}
+
+[data-array-key] {
+  border: 1px solid #111 !important;
+  border-left: none !important;
+}
+
+[data-array-key]:first-child {
+  border-left: 1px solid #111 !important;
+}
+
+[data-array-key][data-win='false'][data-played='true'] {
+  background-color: var(--loser);
+}
+
+[data-array-key][data-win='true'][data-played='true'] {
+  background-color: var(--winner);
+}
+
+[data-array-key][data-win='true'][data-played='true'][data-trajectory] {
+  background-color: var(--trajectory);
 }
 
 [data-block] {
