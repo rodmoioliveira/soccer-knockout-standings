@@ -244,7 +244,6 @@ of(
     startWith({ position: null })
   )
   .subscribe(val => {
-    console.log(mataMata);
     if (val.position) {
       toogleWinner(val.position);
       setTrail(val.position);
