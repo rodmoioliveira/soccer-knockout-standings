@@ -85,7 +85,7 @@ const mataMata = [
   team('Flamengo'),
   team('Fluminense'),
   team('Botafogo'),
-  team('Comercial'),
+  team('Atlético-Mg'),
   team('Bangu'),
   team('Portuguesa'),
 ].map((pos, i) => {
