@@ -20,6 +20,7 @@
   --title-font-size: 3.5rem;
   --title-margin: 1.5rem;
   --animation-duration: 300ms;
+  --border-radius: 2px;
 }
 
 @media (min-width: 768px) {
@@ -36,13 +37,17 @@
 @media (max-width: 768px) {
   :root {
     --team-height: 6vw;
-    --team-width: 9vw;
-    --teams-font-size: 1.3vw;
+    --team-width: 8vw;
+    --teams-font-size: 3.5vw;
     --heap-height: 3vw;
     --heap-width: 3vw;
     --indexes-font-size: 2vw;
     --title-font-size: 7vw;
     --title-margin: 4vw;
+  }
+
+  [data-key] {
+    --border-style: dashed;
   }
 }
 
@@ -129,6 +134,7 @@
 .knockouts {
   display: flex;
   justify-content: center;
+  transition: all var(--animation-duration) ease;
 }
 
 .phase {
@@ -146,22 +152,23 @@
 /* ======================================== */
 
 [data-key] {
+  line-height: 1;
   position: relative;
   height: var(--team-height);
   width: var(--team-width);
   background-color: var(--background);
   border: var(--border-width) var(--border-style) var(--base-color);
   color: var(--base-color);
-  border-radius: 2px;
+  border-radius: var(--border-radius);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  transition: transform var(--animation-duration) ease,
-    color var(--animation-duration) ease, border var(--animation-duration) ease;
+  transition: all var(--animation-duration) ease;
   font-size: var(--teams-font-size);
   font-weight: 700;
   cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 [data-win='false'][data-played='true'] {
@@ -221,7 +228,7 @@
   content: '';
   height: var(--team-height);
   width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-bottom: none;
   border-left: none;
   position: absolute;
@@ -238,7 +245,7 @@
   content: '';
   height: var(--team-height);
   width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-left: none;
   position: absolute;
@@ -255,7 +262,7 @@
   content: '';
   height: var(--team-height);
   width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-bottom: none;
   border-right: none;
   position: absolute;
@@ -272,7 +279,7 @@
   content: '';
   height: var(--team-height);
   width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-right: none;
   position: absolute;
@@ -287,7 +294,7 @@
   content: '';
   height: calc(2 * var(--team-height));
   width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-bottom: none;
   border-left: none;
   position: absolute;
@@ -302,7 +309,7 @@
   content: '';
   height: calc(2 * var(--team-height));
   width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-left: none;
   position: absolute;
@@ -317,7 +324,7 @@
   content: '';
   height: calc(2 * var(--team-height));
   width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-bottom: none;
   border-right: none;
   position: absolute;
@@ -332,7 +339,7 @@
   content: '';
   height: calc(2 * var(--team-height));
   width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-right: none;
   position: absolute;
@@ -346,7 +353,7 @@
   content: '';
   height: calc(4.25 * var(--team-height));
   width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-bottom: none;
   border-right: none;
   position: absolute;
@@ -360,7 +367,7 @@
   content: '';
   height: calc(4.25 * var(--team-height));
   width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-right: none;
   position: absolute;
@@ -374,7 +381,7 @@
   content: '';
   height: calc(4.25 * var(--team-height));
   width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-bottom: none;
   border-left: none;
   position: absolute;
@@ -388,7 +395,7 @@
   content: '';
   height: calc(4.25 * var(--team-height));
   width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-left: none;
   position: absolute;
@@ -402,7 +409,7 @@
   content: '';
   height: calc(3 * var(--team-height));
   width: calc(var(--team-width) + var(--phase-margin));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-left: none;
   position: absolute;
@@ -416,7 +423,7 @@
   content: '';
   height: calc(3 * var(--team-height));
   width: calc(var(--team-width) + var(--phase-margin));
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-right: none;
   position: absolute;
@@ -432,6 +439,13 @@
 @media (max-width: 768px) {
   .knockouts {
     transform: rotate(90deg);
-    margin: 80px auto;
+    margin: 17vw auto;
+  }
+}
+
+@media (max-width: 540px) {
+  .knockouts {
+    transform: rotate(90deg);
+    margin: 27vw auto;
   }
 }
