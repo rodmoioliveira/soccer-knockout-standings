@@ -8,6 +8,7 @@
   --winner: #e84a64;
   --loser: #ddd;
   --border-width: 1px;
+  --border-style: solid;
   --team-height: 40px;
   --team-width: 130px;
   --heap-height: 40px;
@@ -88,7 +89,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: var(--border-width) solid transparent;
+  border: var(--border-width) var(--border-style) transparent;
   border-left: none;
   transition: background var(--animation-duration) ease;
   font-size: var(--indexes-font-size);
@@ -96,17 +97,17 @@
 }
 
 [data-index-key]:first-child {
-  border: var(--border-width) solid transparent;
+  border: var(--border-width) var(--border-style) transparent;
 }
 
 [data-array-key] {
-  border: var(--border-width) solid #111 !important;
+  border: var(--border-width) var(--border-style) #111 !important;
   border-left: none !important;
   cursor: pointer;
 }
 
 [data-array-key]:first-child {
-  border-left: var(--border-width) solid #111 !important;
+  border-left: var(--border-width) var(--border-style) #111 !important;
 }
 
 [data-array-key][data-win='false'][data-played='true'] {
@@ -137,7 +138,7 @@
 [data-block] {
   height: var(--team-height);
   width: var(--team-width);
-  border: var(--border-width) solid transparent;
+  border: var(--border-width) var(--border-style) transparent;
 }
 
 /* ======================================== */
@@ -149,7 +150,7 @@
   height: var(--team-height);
   width: var(--team-width);
   background-color: var(--background);
-  border: var(--border-width) solid var(--base-color);
+  border: var(--border-width) var(--border-style) var(--base-color);
   color: var(--base-color);
   border-radius: 2px;
   display: flex;
@@ -164,7 +165,7 @@
 }
 
 [data-win='false'][data-played='true'] {
-  border: var(--border-width) solid var(--loser);
+  border: var(--border-width) var(--border-style) var(--loser);
   color: var(--loser);
 }
 
@@ -178,7 +179,7 @@
 }
 
 [data-win='true'][data-played='true'] {
-  border: var(--border-width) solid var(--winner);
+  border: var(--border-width) var(--border-style) var(--winner);
   color: var(--winner);
 }
 
@@ -188,7 +189,7 @@
 }
 
 [data-win='true'][data-played='true'][data-trajectory] {
-  border: var(--border-width) solid var(--trajectory);
+  border: var(--border-width) var(--border-style) var(--trajectory);
   color: var(--trajectory);
 }
 
@@ -203,7 +204,7 @@
 }
 
 #id0[data-win='true'][data-played='true'] {
-  border: var(--border-width) solid var(--trajectory);
+  border: var(--border-width) var(--border-style) var(--trajectory);
   color: var(--trajectory);
   transform: translateY(-300%) scale(1.5) rotate(360deg);
 }
