@@ -93,6 +93,7 @@ const mataMata = [
     ...pos,
     el: document.getElementById(`id${i}`),
     arrayEl: document.getElementById(`array${i}`),
+    imgEl: document.getElementById(`img${i}`),
   };
 });
 let prevTrajectory = [];
@@ -194,9 +195,6 @@ const toogleWinner = key => {
 
 const render = arr => {
   arr.forEach((node, i) => {
-    node.el.innerHTML = node.src
-      ? `<img class="team-img" src="${node.src}"/>`
-      : '';
     node.el.setAttribute('data-win', node.win);
     node.el.setAttribute('data-played', node.played);
     node.arrayEl.setAttribute('data-win', node.win);
@@ -217,6 +215,11 @@ const render = arr => {
       node.el.setAttribute('data-played', true);
       node.arrayEl.setAttribute('data-win', true);
       node.arrayEl.setAttribute('data-played', true);
+    }
+
+    if (node.src) {
+      node.imgEl.setAttribute('src', node.src);
+      node.imgEl.removeAttribute('data-no-src');
     }
   });
 };
