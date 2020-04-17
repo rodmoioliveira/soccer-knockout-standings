@@ -490,13 +490,13 @@
 @media (max-width: 768px) {
   .knockouts {
     transform: rotate(90deg);
-    margin: 17vw auto;
+    margin: 12vw auto;
   }
 }
 
 @media (max-width: 540px) {
   .knockouts {
     transform: rotate(90deg);
-    margin: 27vw auto;
+    margin: 22vw auto;
   }
 }
