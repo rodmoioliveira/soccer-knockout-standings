@@ -4,8 +4,8 @@
 
 :root {
   --base-color: #111;
-  --trajectory: green;
-  --winner: #e84a64;
+  --trajectory: #c20114;
+  --winner: #470ff4;
   --loser: #ddd;
   --border-width: 1px;
   --border-style: solid;
