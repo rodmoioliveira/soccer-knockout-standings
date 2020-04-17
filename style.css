@@ -45,22 +45,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   border-left: none;
   transition: background 300ms ease;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 [data-index-key]:first-child {
-  border: 1px solid transparent;
+  border: 2px solid transparent;
 }
 
 [data-array-key] {
-  border: 1px solid #111 !important;
+  border: 2px solid #111 !important;
   border-left: none !important;
 }
 
 [data-array-key]:first-child {
-  border-left: 1px solid #111 !important;
+  border-left: 2px solid #111 !important;
 }
 
 [data-array-key][data-win='false'][data-played='true'] {
