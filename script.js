@@ -211,14 +211,21 @@ const render = arr => {
   });
 };
 
-of(...[...document.querySelectorAll('[data-key]')])
+of(
+  ...[...document.querySelectorAll('[data-key]')],
+  ...[...document.querySelectorAll('[data-array-key]')]
+)
   .pipe(
     mergeMap(div =>
       fromEvent(div, 'click').pipe(
-        map(() => ({
-          index: positions[div.getAttribute('data-key')],
-          position: div.getAttribute('data-key'),
-        }))
+        map(() => {
+          const position =
+            div.getAttribute('data-key') || div.getAttribute('data-array-key');
+          return {
+            index: positions[position],
+            position,
+          };
+        })
       )
     ),
     startWith({ position: null })
