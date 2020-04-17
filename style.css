@@ -2,23 +2,23 @@
   --base-color: #111;
   --trajectory: green;
   --winner: #e84a64;
-  --loser: #999;
+  --loser: #ccc;
   --border-width: 2px;
   --height: 40px;
-  --width: 120px;
+  --width: 150px;
   --background: white;
-  --phase-margin: 0 10px;
+  --phase-margin: 10px;
 }
 
 * {
   font-family: 'Open Sans', sans-serif;
-  /* outline: 1px dashed red; */
 }
 
 .title {
   text-align: center;
-  font-size: 50px;
+  font-size: 70px;
   font-weight: 700;
+  line-height: 1;
 }
 
 .knockouts {
@@ -30,10 +30,10 @@
   height: var(--height);
   width: var(--width);
   border: var(--border-width) solid transparent;
-  background-color: var(--background);
 }
 
 [data-key] {
+  position: relative;
   height: var(--height);
   width: var(--width);
   background-color: var(--background);
@@ -45,7 +45,7 @@
   justify-content: center;
   text-align: center;
   transition: transform 300ms ease, color 300ms ease, border 300ms ease;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -53,7 +53,10 @@
 [data-win='false'][data-played='true'] {
   border: var(--border-width) solid var(--loser);
   color: var(--loser);
-  opacity: 0.5;
+}
+
+[data-win='false'][data-played='true']:after {
+  border-color: var(--loser);
 }
 
 [data-disable] {
@@ -65,20 +68,248 @@
   color: var(--winner);
 }
 
+[data-win='true'][data-played='true']:after {
+  border-color: var(--winner);
+}
+
 [data-win='true'][data-played='true'][data-trajectory] {
   border: var(--border-width) solid var(--trajectory);
   color: var(--trajectory);
 }
 
-#id0[data-win='true'][data-played='true'] {
-  border: var(--border-width) solid var(--trajectory);
-  color: var(--trajectory);
-  transform: translateY(-300%) scale(2) rotate(360deg);
+[data-win='true'][data-played='true'][data-trajectory]:after {
+  border-color: var(--trajectory);
+}
+
+#id0 {
+  transform: translateY(-300%) scale(1);
   transition: all 600ms ease;
 }
 
+#id0[data-win='true'][data-played='true'] {
+  border: var(--border-width) solid var(--trajectory);
+  color: var(--trajectory);
+  transform: translateY(-300%) scale(1.5) rotate(360deg);
+}
+
 .phase {
-  margin: var(--phase-margin);
+  margin: 0 var(--phase-margin);
+}
+
+/* ======================================== */
+/* Licação dentre as chaves */
+/* ======================================== */
+
+[data-key='oitavas4_time1']:after,
+[data-key='oitavas3_time1']:after,
+[data-key='oitavas2_time1']:after,
+[data-key='oitavas1_time1']:after {
+  display: block;
+  content: '';
+  height: var(--height);
+  width: calc(var(--width) + (2.5 * var(--phase-margin)));
+  border: 2px solid var(--base-color);
+  border-bottom: none;
+  border-left: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+}
+
+[data-key='oitavas4_time2']:after,
+[data-key='oitavas3_time2']:after,
+[data-key='oitavas2_time2']:after,
+[data-key='oitavas1_time2']:after {
+  display: block;
+  content: '';
+  height: var(--height);
+  width: calc(var(--width) + (2.5 * var(--phase-margin)));
+  border: 2px solid var(--base-color);
+  border-top: none;
+  border-left: none;
+  position: absolute;
+  left: 50%;
+  top: -50%;
+  z-index: -1;
+}
+
+[data-key='oitavas8_time1']:after,
+[data-key='oitavas7_time1']:after,
+[data-key='oitavas6_time1']:after,
+[data-key='oitavas5_time1']:after {
+  display: block;
+  content: '';
+  height: var(--height);
+  width: calc(var(--width) + (2.5 * var(--phase-margin)));
+  border: 2px solid var(--base-color);
+  border-bottom: none;
+  border-right: none;
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  z-index: -1;
+}
+
+[data-key='oitavas8_time2']:after,
+[data-key='oitavas7_time2']:after,
+[data-key='oitavas6_time2']:after,
+[data-key='oitavas5_time2']:after {
+  display: block;
+  content: '';
+  height: var(--height);
+  width: calc(var(--width) + (2.5 * var(--phase-margin)));
+  border: 2px solid var(--base-color);
+  border-top: none;
+  border-right: none;
+  position: absolute;
+  right: 50%;
+  bottom: 50%;
+  z-index: -1;
+}
+
+[data-key='quartas1_time1']:after,
+[data-key='quartas2_time1']:after {
+  display: block;
+  content: '';
+  height: calc(2 * var(--height));
+  width: calc(var(--width) + (2.5 * var(--phase-margin)));
+  border: 2px solid var(--base-color);
+  border-bottom: none;
+  border-left: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+}
+
+[data-key='quartas1_time2']:after,
+[data-key='quartas2_time2']:after {
+  display: block;
+  content: '';
+  height: calc(2 * var(--height));
+  width: calc(var(--width) + (2.5 * var(--phase-margin)));
+  border: 2px solid var(--base-color);
+  border-top: none;
+  border-left: none;
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  z-index: -1;
+}
+
+[data-key='quartas3_time1']:after,
+[data-key='quartas4_time1']:after {
+  display: block;
+  content: '';
+  height: calc(2 * var(--height));
+  width: calc(var(--width) + (2.5 * var(--phase-margin)));
+  border: 2px solid var(--base-color);
+  border-bottom: none;
+  border-right: none;
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  z-index: -1;
+}
+
+[data-key='quartas3_time2']:after,
+[data-key='quartas4_time2']:after {
+  display: block;
+  content: '';
+  height: calc(2 * var(--height));
+  width: calc(var(--width) + (2.5 * var(--phase-margin)));
+  border: 2px solid var(--base-color);
+  border-top: none;
+  border-right: none;
+  position: absolute;
+  right: 50%;
+  bottom: 50%;
+  z-index: -1;
+}
+
+[data-key='semifinal2_time1']:after {
+  display: block;
+  content: '';
+  height: calc(4.25 * var(--height));
+  width: calc(var(--width) + (2.5 * var(--phase-margin)));
+  border: 2px solid var(--base-color);
+  border-bottom: none;
+  border-right: none;
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  z-index: -1;
+}
+
+[data-key='semifinal2_time2']:after {
+  display: block;
+  content: '';
+  height: calc(4.25 * var(--height));
+  width: calc(var(--width) + (2.5 * var(--phase-margin)));
+  border: 2px solid var(--base-color);
+  border-top: none;
+  border-right: none;
+  position: absolute;
+  right: 50%;
+  bottom: 50%;
+  z-index: -1;
+}
+
+[data-key='semifinal1_time1']:after {
+  display: block;
+  content: '';
+  height: calc(4.25 * var(--height));
+  width: calc(var(--width) + (2.5 * var(--phase-margin)));
+  border: 2px solid var(--base-color);
+  border-bottom: none;
+  border-left: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+}
+
+[data-key='semifinal1_time2']:after {
+  display: block;
+  content: '';
+  height: calc(4.25 * var(--height));
+  width: calc(var(--width) + (2.5 * var(--phase-margin)));
+  border: 2px solid var(--base-color);
+  border-top: none;
+  border-left: none;
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  z-index: -1;
+}
+
+[data-key='final_time1']:after {
+  display: block;
+  content: '';
+  height: calc(3 * var(--height));
+  width: calc(var(--width) / 1.1);
+  border: 2px solid var(--base-color);
+  border-top: none;
+  border-left: none;
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  z-index: -1;
+}
+
+[data-key='final_time2']:after {
+  display: block;
+  content: '';
+  height: calc(3 * var(--height));
+  width: calc(var(--width) / 1.1);
+  border: 2px solid var(--base-color);
+  border-top: none;
+  border-right: none;
+  position: absolute;
+  right: 50%;
+  bottom: 50%;
+  z-index: -1;
 }
 
 /* @media (max-width: 1000px) { */
