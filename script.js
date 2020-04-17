@@ -201,6 +201,11 @@ const render = arr => {
         ? 'removeAttribute'
         : 'setAttribute'
     ]('data-disable', '');
+    node.arrayEl[
+      node.name && arr[sibling(i)].name && i !== 0
+        ? 'removeAttribute'
+        : 'setAttribute'
+    ]('data-disable', '');
 
     if (i === 0 && node.name) {
       node.el.setAttribute('data-win', true);
