@@ -4,6 +4,11 @@ const {
   of,
 } = rxjs;
 
+/**
+ * @description Obtém index do pai de um vértice.
+ * @param {number} i Index do vértice.
+ * @returns {number}
+ */
 const parent = i => {
   if (i === 0) {
     return null;
@@ -13,15 +18,48 @@ const parent = i => {
   }
   return (i - 1) >> 1;
 };
+
+/**
+ * @description Obtém index do irmão de um vértice.
+ * @param {number} i Index do vértice.
+ * @returns {number}
+ */
 const sibling = i => {
   if (i === 0) {
     return 0;
   }
   return i % 2 === 0 ? i - 1 : i + 1;
 };
+
+/**
+ * @description Obtém descendente da esquerda de um vértice.
+ * @param {number} i Index do vértice.
+ * @returns {number}
+ */
 const left = i => (i << 1) + 1;
+
+/**
+ * @description Obtém descendente da direita de um vértice.
+ * @param {number} i Index do vértice.
+ * @returns {number}
+ */
 const right = i => (i << 1) + 2;
+
+/**
+ * @description Cria um objeto para representar um time.
+ * @param {number} obj Parâmetros da função.
+ * @param {string} obj.name Nome do time.
+ * @param {string} obj.scr Url da imagem do time.
+ * @returns {object}
+ */
 const team = ({ name, src }) => ({ name, win: false, played: false, src });
+
+/**
+ * @constant
+ * @type {object}
+ * @description Hashmap com a associação do nome da posição no mata-mata
+ * e o index correspondente no heap.
+ */
 const positions = {
   campeao: 0,
   final_time1: 1,
@@ -56,6 +94,12 @@ const positions = {
   oitavas8_time2: 30,
 };
 
+/**
+ * @constant
+ * @type {array}
+ * @description Este é o heap propriamente dito. Cada index representa
+ * uma posição na árvore binária do mata-mata.
+ */
 const mataMata = [
   team({ name: null, src: null }),
   team({ name: null, src: null }),
@@ -97,9 +141,23 @@ const mataMata = [
     imgArray: document.getElementById(`array-img${i}`),
   };
 });
+
+/**
+ * @type {array}
+ * @description Trajetória do campeão anterior.
+ */
 let prevTrajectory = [];
+
+/**
+ * @type {array}
+ * @description Trajetória do campeão atual.
+ */
 let trajectory = [];
 
+/**
+ * @description Obtém o rastro de indexes de um time.
+ * @param {string} key Nome da chave dentro do objeto positions.
+ */
 const getTrajectory = key => {
   let index = positions[key];
   let path = [index];
@@ -128,17 +186,29 @@ const getTrajectory = key => {
   }
 };
 
-const displayTrajectory = i => {
+/**
+ * @description Apresenta o caminho de um time no DOM.
+ * @param {number} i Index do vértice.
+ */
+const displayPath = i => {
   mataMata[i].el.setAttribute('data-trajectory', '');
   mataMata[i].arrayEl.setAttribute('data-trajectory', '');
 };
 
-const removeTrajectory = i => {
+/**
+ * @description Remove o caminho de um time do DOM.
+ * @param {number} i Index do vértice.
+ */
+const removePath = i => {
   mataMata[i].el.removeAttribute('data-trajectory');
   mataMata[i].arrayEl.removeAttribute('data-trajectory');
 };
 
-const setTrail = key => {
+/**
+ * @description Projeta o caminho de um time pelo heap.
+ * @param {string} key Nome da chave dentro do objeto positions.
+ */
+const projectPath = key => {
   let index = positions[key];
   const { win, name, src } = mataMata[index];
   const nameToClimb = win ? name : mataMata[sibling(index)].name;
@@ -165,6 +235,10 @@ const setTrail = key => {
   });
 };
 
+/**
+ * @description Transforma um time em vencedor ou em perdedor.
+ * @param {string} key Nome da chave dentro do objeto positions.
+ */
 const toogleWinner = key => {
   const i = positions[key];
 
@@ -194,6 +268,10 @@ const toogleWinner = key => {
   }
 };
 
+/**
+ * @description Renderiza o mata-mata no DOM.
+ * @param {array} arr Heap que representa o mata-mata.
+ */
 const render = arr => {
   arr.forEach((node, i) => {
     node.el.setAttribute('data-win', node.win);
@@ -227,6 +305,11 @@ const render = arr => {
   });
 };
 
+/**
+ * @type {observable}
+ * @description Observável das interações do usuário com
+ * o mata-mata.
+ */
 of(
   ...[...document.querySelectorAll('[data-key]')],
   ...[...document.querySelectorAll('[data-array-key]')]
@@ -249,10 +332,10 @@ of(
   .subscribe(val => {
     if (val.position) {
       toogleWinner(val.position);
-      setTrail(val.position);
+      projectPath(val.position);
       getTrajectory('campeao');
-      prevTrajectory.forEach(removeTrajectory);
-      trajectory.forEach(displayTrajectory);
+      prevTrajectory.forEach(removePath);
+      trajectory.forEach(displayPath);
     }
     render(mataMata);
   });
