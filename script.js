@@ -303,6 +303,16 @@ const render = arr => {
 };
 
 /**
+ * @description Aplica ou remove highlights.
+ * @param {string} action 'setAttribute' || 'removeAttribute'.
+ * @param {number} id Id do elemento.
+ */
+const highlights = (action, id) => {
+  document.getElementById(`img${id}`).parentNode[action]('data-outline', '');
+  document.getElementById(`array${id}`)[action]('data-outline', '');
+};
+
+/**
  * @type {observable}
  * @description Observável para os highlights dos vértices.
  */
@@ -317,37 +327,16 @@ fromEvent(document, 'mousemove')
     if (!stack[0]) {
       stack.pop();
     } else {
-      document
-        .getElementById(`img${stack[0]}`)
-        .parentNode.setAttribute('data-outline', '');
-      document
-        .getElementById(`array${stack[0]}`)
-        .setAttribute('data-outline', '');
-
+      highlights('setAttribute', stack[0]);
       if (stack.length > 1) {
         if (!stack[1]) {
           stack.pop();
-          document
-            .getElementById(`img${stack[0]}`)
-            .parentNode.removeAttribute('data-outline');
-          document
-            .getElementById(`array${stack[0]}`)
-            .removeAttribute('data-outline', '');
+          highlights('removeAttribute', stack[0]);
           stack.pop();
         } else {
-          document
-            .getElementById(`img${stack[0]}`)
-            .parentNode.removeAttribute('data-outline');
-          document
-            .getElementById(`array${stack[0]}`)
-            .removeAttribute('data-outline', '');
+          highlights('removeAttribute', stack[0]);
           stack.shift();
-          document
-            .getElementById(`img${stack[0]}`)
-            .parentNode.setAttribute('data-outline', '');
-          document
-            .getElementById(`array${stack[0]}`)
-            .setAttribute('data-outline', '');
+          highlights('setAttribute', stack[0]);
         }
       }
     }
