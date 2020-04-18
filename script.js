@@ -155,7 +155,7 @@ let prevTrajectory = [];
 let trajectory = [];
 
 /**
- * @description Obtém o rastro de indexes de um time.
+ * @description Obtém a trajetória de indexes de um time.
  * @param {number} i Index do vértice.
  */
 const getTrajectory = i => {
