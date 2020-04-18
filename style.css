@@ -7,12 +7,8 @@
   --trajectory: #c20114;
   --winner: #470ff4;
   --loser: #ddd;
-  --border-width: 1px;
+  --border-width: 2px;
   --border-style: solid;
-  --team-height: 40px;
-  --team-width: 130px;
-  --heap-height: 40px;
-  --heap-width: 40px;
   --background: white;
   --phase-margin: 10px;
   --indexes-font-size: 20px;
@@ -26,24 +22,27 @@
 @media (min-width: 768px) {
   :root {
     --team-height: 2vw;
-    --team-width: 8vw;
+    --team-width: 5vw;
     --teams-font-size: 1vw;
     --heap-height: 2vw;
     --heap-width: 2vw;
     --indexes-font-size: 1.1vw;
+    --phase-margin: 1vw;
+    --team-img-height: 3vw;
   }
 }
 
 @media (max-width: 768px) {
   :root {
-    --team-height: 6vw;
-    --team-width: 8vw;
+    --team-height: 5vw;
+    --team-width: 7vw;
     --teams-font-size: 3.5vw;
     --heap-height: 3vw;
     --heap-width: 3vw;
     --indexes-font-size: 2vw;
     --title-font-size: 7vw;
     --title-margin: 4vw;
+    --team-img-height: 8vw;
   }
 }
 
@@ -53,6 +52,7 @@
 
 * {
   font-family: 'Open Sans', sans-serif;
+  /* outline: 1px dashed #111; */
 }
 
 .title {
@@ -152,8 +152,7 @@
   position: relative;
   height: var(--team-height);
   width: var(--team-width);
-  background-color: var(--background);
-  border: var(--border-width) var(--border-style) var(--base-color);
+  border: var(--border-width) var(--border-style) transparent;
   color: var(--base-color);
   border-radius: var(--border-radius);
   display: flex;
@@ -168,7 +167,7 @@
 }
 
 [data-win='false'][data-played='true'] {
-  border: var(--border-width) var(--border-style) var(--loser);
+  border: var(--border-width) var(--border-style) transparent;
   color: var(--loser);
 }
 
@@ -182,7 +181,7 @@
 }
 
 [data-win='true'][data-played='true'] {
-  border: var(--border-width) var(--border-style) var(--winner);
+  border: var(--border-width) var(--border-style) transparent;
   color: var(--winner);
 }
 
@@ -192,12 +191,13 @@
 }
 
 [data-win='true'][data-played='true'][data-trajectory] {
-  border: var(--border-width) var(--border-style) var(--trajectory);
+  border: var(--border-width) var(--border-style) transparent;
   color: var(--trajectory);
 }
 
 [data-win='true'][data-played='true'][data-trajectory]:after {
   border-color: var(--trajectory);
+  border-width: calc(var(--border-width) * 2);
   transition: all var(--animation-duration) ease;
 }
 
@@ -207,7 +207,7 @@
 }
 
 #id0[data-win='true'][data-played='true'] {
-  border: var(--border-width) var(--border-style) var(--trajectory);
+  border: var(--border-width) var(--border-style) transparent;
   color: var(--trajectory);
   transform: translateY(-300%) scale(1.5) rotate(360deg);
 }
@@ -222,14 +222,16 @@
 [data-key='oitavas1_time1']:after {
   display: block;
   content: '';
-  height: var(--team-height);
-  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  height: calc(var(--team-height) + (2 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-bottom: none;
   border-left: none;
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: calc(50% - (var(--border-width) / 2));
+  top: calc(50% - (var(--border-width) / 2));
   z-index: -1;
 }
 
@@ -239,14 +241,16 @@
 [data-key='oitavas1_time2']:after {
   display: block;
   content: '';
-  height: var(--team-height);
-  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  height: calc(var(--team-height) + (2 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-left: none;
   position: absolute;
-  left: 50%;
-  top: -50%;
+  left: calc(50% - (var(--border-width) / 2));
+  bottom: calc(50% - (var(--border-width) / 2));
   z-index: -1;
 }
 
@@ -256,14 +260,16 @@
 [data-key='oitavas5_time1']:after {
   display: block;
   content: '';
-  height: var(--team-height);
-  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  height: calc(var(--team-height) + (2 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-bottom: none;
   border-right: none;
   position: absolute;
-  right: 50%;
-  top: 50%;
+  right: calc(50% - (var(--border-width) / 2));
+  top: calc(50% - (var(--border-width) / 2));
   z-index: -1;
 }
 
@@ -273,14 +279,16 @@
 [data-key='oitavas5_time2']:after {
   display: block;
   content: '';
-  height: var(--team-height);
-  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  height: calc(var(--team-height) + (2 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-right: none;
   position: absolute;
-  right: 50%;
-  bottom: 50%;
+  right: calc(50% - (var(--border-width) / 2));
+  bottom: calc(50% - (var(--border-width) / 2));
   z-index: -1;
 }
 
@@ -288,14 +296,16 @@
 [data-key='quartas2_time1']:after {
   display: block;
   content: '';
-  height: calc(2 * var(--team-height));
-  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  height: calc(2 * var(--team-height) + (3 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-bottom: none;
   border-left: none;
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: calc(50% - (var(--border-width) / 2));
+  top: calc(50% - (var(--border-width) / 2));
   z-index: -1;
 }
 
@@ -303,14 +313,16 @@
 [data-key='quartas2_time2']:after {
   display: block;
   content: '';
-  height: calc(2 * var(--team-height));
-  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  height: calc(2 * var(--team-height) + (3 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-left: none;
   position: absolute;
-  left: 50%;
-  bottom: 50%;
+  left: calc(50% - (var(--border-width) / 2));
+  bottom: calc(50% - (var(--border-width) / 2));
   z-index: -1;
 }
 
@@ -318,14 +330,16 @@
 [data-key='quartas4_time1']:after {
   display: block;
   content: '';
-  height: calc(2 * var(--team-height));
-  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  height: calc(2 * var(--team-height) + (3 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-bottom: none;
   border-right: none;
   position: absolute;
-  right: 50%;
-  top: 50%;
+  right: calc(50% - (var(--border-width) / 2));
+  top: calc(50% - (var(--border-width) / 2));
   z-index: -1;
 }
 
@@ -333,99 +347,153 @@
 [data-key='quartas4_time2']:after {
   display: block;
   content: '';
-  height: calc(2 * var(--team-height));
-  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  height: calc(2 * var(--team-height) + (3 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-right: none;
   position: absolute;
-  right: 50%;
-  bottom: 50%;
   z-index: -1;
+  right: calc(50% - (var(--border-width) / 2));
+  bottom: calc(50% - (var(--border-width) / 2));
 }
 
 [data-key='semifinal2_time1']:after {
   display: block;
   content: '';
-  height: calc(4.25 * var(--team-height));
-  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  height: calc(4 * var(--team-height) + (8 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-bottom: none;
   border-right: none;
   position: absolute;
-  right: 50%;
-  top: 50%;
+  right: calc(50% - (var(--border-width) / 2));
+  top: calc(50% - (var(--border-width) / 2));
   z-index: -1;
 }
 
 [data-key='semifinal2_time2']:after {
   display: block;
   content: '';
-  height: calc(4.25 * var(--team-height));
-  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  height: calc(4 * var(--team-height) + (8 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-right: none;
   position: absolute;
-  right: 50%;
-  bottom: 50%;
+  right: calc(50% - (var(--border-width) / 2));
+  bottom: calc(50% - (var(--border-width) / 2));
   z-index: -1;
 }
 
 [data-key='semifinal1_time1']:after {
   display: block;
   content: '';
-  height: calc(4.25 * var(--team-height));
-  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  height: calc(4 * var(--team-height) + (8 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-bottom: none;
   border-left: none;
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: calc(50% - (var(--border-width) / 2));
+  top: calc(50% - (var(--border-width) / 2));
   z-index: -1;
 }
 
 [data-key='semifinal1_time2']:after {
   display: block;
   content: '';
-  height: calc(4.25 * var(--team-height));
-  width: calc(var(--team-width) + (2.5 * var(--phase-margin)));
+  height: calc(4 * var(--team-height) + (8 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-left: none;
   position: absolute;
-  left: 50%;
-  bottom: 50%;
+  left: calc(50% - (var(--border-width) / 2));
+  bottom: calc(50% - (var(--border-width) / 2));
   z-index: -1;
 }
 
 [data-key='final_time1']:after {
   display: block;
   content: '';
-  height: calc(3 * var(--team-height));
-  width: calc(var(--team-width) + var(--phase-margin));
+  height: calc(3 * var(--team-height) + (6 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-left: none;
   position: absolute;
-  left: 50%;
-  bottom: 50%;
+  left: calc(50% - (var(--border-width) / 2));
+  bottom: calc(50% - (var(--border-width) / 2));
   z-index: -1;
 }
 
 [data-key='final_time2']:after {
   display: block;
   content: '';
-  height: calc(3 * var(--team-height));
-  width: calc(var(--team-width) + var(--phase-margin));
+  height: calc(3 * var(--team-height) + (6 * var(--border-width)));
+  width: calc(
+    var(--team-width) + (var(--border-width) * 2) + (2 * var(--phase-margin))
+  );
   border: var(--border-width) var(--border-style) var(--base-color);
   border-top: none;
   border-right: none;
   position: absolute;
-  right: 50%;
-  bottom: 50%;
+  right: calc(50% - (var(--border-width) / 2));
+  bottom: calc(50% - (var(--border-width) / 2));
   z-index: -1;
+}
+
+[data-key='final_time2'][data-played='true'][data-win='false']:after {
+  z-index: -3;
+}
+
+/* ======================================== */
+/* Escudos */
+/* ======================================== */
+
+.team-img {
+  height: var(--team-img-height);
+  width: auto;
+  transition: all var(--animation-duration) ease;
+}
+
+[data-win='false'][data-played='true'] .team-img {
+  transform: scale(0.7);
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+
+[data-win='true'][data-played='true'][data-trajectory] .team-img {
+  transform: scale(1.3);
+}
+
+@media (max-width: 768px) {
+  .team-img {
+    transform: rotate(-90deg);
+  }
+
+  [data-win='false'][data-played='true'] .team-img {
+    transform: scale(0.7) rotate(-90deg);
+    opacity: 0.5;
+    filter: grayscale(1);
+  }
+
+  [data-win='true'][data-played='true'][data-trajectory] .team-img {
+    transform: scale(1.3) rotate(-90deg);
+  }
 }
 
 /* ======================================== */
@@ -435,13 +503,13 @@
 @media (max-width: 768px) {
   .knockouts {
     transform: rotate(90deg);
-    margin: 17vw auto;
+    margin: 12vw auto;
   }
 }
 
 @media (max-width: 540px) {
   .knockouts {
     transform: rotate(90deg);
-    margin: 27vw auto;
+    margin: 22vw auto;
   }
 }

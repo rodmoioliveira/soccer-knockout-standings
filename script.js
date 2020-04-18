@@ -21,7 +21,7 @@ const sibling = i => {
 };
 const left = i => (i << 1) + 1;
 const right = i => (i << 1) + 2;
-const team = name => ({ name, win: false, played: false });
+const team = ({ name, src }) => ({ name, win: false, played: false, src });
 const positions = {
   campeao: 0,
   final_time1: 1,
@@ -57,42 +57,43 @@ const positions = {
 };
 
 const mataMata = [
-  team(null),
-  team(null),
-  team(null),
-  team(null),
-  team(null),
-  team(null),
-  team(null),
-  team(null),
-  team(null),
-  team(null),
-  team(null),
-  team(null),
-  team(null),
-  team(null),
-  team(null),
-  team('Corinthians'),
-  team('Santos'),
-  team('São Paulo'),
-  team('Internacional'),
-  team('Grêmio'),
-  team('Bahia'),
-  team('Ponte Preta'),
-  team('Oeste'),
-  team('Guarani'),
-  team('Palmeiras'),
-  team('Flamengo'),
-  team('Fluminense'),
-  team('Botafogo'),
-  team('Comercial'),
-  team('Bangu'),
-  team('Portuguesa'),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: null, src: null }),
+  team({ name: 'Corinthians', src: 'images/corinthians.png' }),
+  team({ name: 'Santos', src: 'images/santos.png' }),
+  team({ name: 'São Paulo', src: 'images/saopaulo.png' }),
+  team({ name: 'Internacional', src: 'images/internacional.svg' }),
+  team({ name: 'Grêmio', src: 'images/gremio.svg' }),
+  team({ name: 'Bahia', src: 'images/bahia.png' }),
+  team({ name: 'Ponte Preta', src: 'images/pontepreta.png' }),
+  team({ name: 'Oeste', src: 'images/oeste.png' }),
+  team({ name: 'Guarani', src: 'images/guarani.png' }),
+  team({ name: 'Palmeiras', src: 'images/palmeiras.png' }),
+  team({ name: 'Flamengo', src: 'images/flamengo.png' }),
+  team({ name: 'Fluminense', src: 'images/fluminense.png' }),
+  team({ name: 'Botafogo', src: 'images/botafogo.png' }),
+  team({ name: 'Atlético-Mg', src: 'images/atleticomg.png' }),
+  team({ name: 'Bangu', src: 'images/bangu.png' }),
+  team({ name: 'Portuguesa', src: 'images/portuguesa.png' }),
 ].map((pos, i) => {
   return {
     ...pos,
     el: document.getElementById(`id${i}`),
     arrayEl: document.getElementById(`array${i}`),
+    imgEl: document.getElementById(`img${i}`),
   };
 });
 let prevTrajectory = [];
@@ -138,25 +139,27 @@ const removeTrajectory = i => {
 
 const setTrail = key => {
   let index = positions[key];
-  const { win, name } = mataMata[index];
+  const { win, name, src } = mataMata[index];
   const nameToClimb = win ? name : mataMata[sibling(index)].name;
+  const srcToClimb = win ? src : mataMata[sibling(index)].src;
   const nameToFall = !win ? name : mataMata[sibling(index)].name;
   const trailIndex = [];
   const trailName = [];
 
   while (index !== 0) {
     const p = parent(index);
-    const pName = mataMata[p].name;
+    const { name: pName, src: pSrc } = mataMata[p];
     if (pName) {
       trailIndex.push(p);
-      trailName.push(pName);
+      trailName.push({ name: pName, src: pSrc });
     }
     index = p;
   }
 
   trailName.forEach((n, i) => {
-    if (n === nameToFall || n === nameToClimb) {
+    if (n.name === nameToFall || n.name === nameToClimb) {
       mataMata[trailIndex[i]].name = nameToClimb;
+      mataMata[trailIndex[i]].src = srcToClimb;
     }
   });
 };
@@ -178,10 +181,12 @@ const toogleWinner = key => {
       ? {
           ...mataMata[p],
           name: mataMata[i].name,
+          src: mataMata[i].src,
         }
       : {
           ...mataMata[p],
           name: mataMata[i].name,
+          src: mataMata[i].src,
           win: false,
           played: false,
         };
@@ -190,12 +195,10 @@ const toogleWinner = key => {
 
 const render = arr => {
   arr.forEach((node, i) => {
-    node.el.innerText = node.name;
     node.el.setAttribute('data-win', node.win);
     node.el.setAttribute('data-played', node.played);
     node.arrayEl.setAttribute('data-win', node.win);
     node.arrayEl.setAttribute('data-played', node.played);
-    node.el.innerText = node.name;
     node.el[
       node.name && arr[sibling(i)].name && i !== 0
         ? 'removeAttribute'
@@ -212,6 +215,11 @@ const render = arr => {
       node.el.setAttribute('data-played', true);
       node.arrayEl.setAttribute('data-win', true);
       node.arrayEl.setAttribute('data-played', true);
+    }
+
+    if (node.src) {
+      node.imgEl.setAttribute('src', node.src);
+      node.imgEl.removeAttribute('data-no-src');
     }
   });
 };
