@@ -7,7 +7,7 @@
   --trajectory: #ff5722;
   --winner: #2196f3;
   --loser: #ddd;
-  --border-width: 2px;
+  --border-width: 1px;
   --border-style: solid;
   --background: white;
   --indexes-font-size: 20px;
@@ -23,8 +23,8 @@
     --team-height: 2vw;
     --team-width: 5vw;
     --teams-font-size: 1vw;
-    --heap-height: 2vw;
-    --heap-width: 2vw;
+    --heap-height: 2.5vw;
+    --heap-width: 2.5vw;
     --indexes-font-size: 1.1vw;
     --phase-margin: 1vw;
     --team-img-height: 3vw;
@@ -91,7 +91,7 @@
   justify-content: center;
   border: var(--border-width) var(--border-style) transparent;
   border-left: none;
-  transition: background var(--animation-duration) ease;
+  transition: all var(--animation-duration) ease;
   font-size: var(--indexes-font-size);
   font-weight: 700;
 }
@@ -523,3 +523,32 @@
   }
 }
 
+/* ======================================== */
+/* GitHub Ribbon */
+/* ======================================== */
+
+.github-corner:hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out;
+}
+@keyframes octocat-wave {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20%,
+  60% {
+    transform: rotate(-25deg);
+  }
+  40%,
+  80% {
+    transform: rotate(10deg);
+  }
+}
+@media (max-width: 500px) {
+  .github-corner:hover .octo-arm {
+    animation: none;
+  }
+  .github-corner .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+  }
+}

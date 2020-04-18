@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/rodmoioliveira/soccer-knockout-standings/master/images/knockout_heap.png">
+  <img src="https://raw.githubusercontent.com/rodmoioliveira/soccer-knockout-standings/master/images/knockout_heap2.png">
 </p>
 
 # soccer-knockout-standings
