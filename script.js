@@ -1,5 +1,5 @@
 const {
-  operators: { mergeMap, map, startWith },
+  operators: { mergeMap, map, startWith, filter, distinctUntilChanged, scan },
   fromEvent,
   of,
 } = rxjs;
@@ -301,6 +301,57 @@ const render = arr => {
     }
   });
 };
+
+/**
+ * @type {observable}
+ * @description Observável para os highlights dos vértices.
+ */
+fromEvent(document, 'mousemove')
+  .pipe(
+    map(({ path }) => path[0].getAttribute('id')),
+    map(id => (id ? parseInt(id.replace(/[a-zA-Z-]/g, ''), 10) : null)),
+    distinctUntilChanged(),
+    scan((acc, cur) => acc.concat(cur), [])
+  )
+  .subscribe(stack => {
+    if (!stack[0]) {
+      stack.pop();
+    } else {
+      document
+        .getElementById(`img${stack[0]}`)
+        .parentNode.setAttribute('data-outline', '');
+      document
+        .getElementById(`array${stack[0]}`)
+        .setAttribute('data-outline', '');
+
+      if (stack.length > 1) {
+        if (!stack[1]) {
+          stack.pop();
+          document
+            .getElementById(`img${stack[0]}`)
+            .parentNode.removeAttribute('data-outline');
+          document
+            .getElementById(`array${stack[0]}`)
+            .removeAttribute('data-outline', '');
+          stack.pop();
+        } else {
+          document
+            .getElementById(`img${stack[0]}`)
+            .parentNode.removeAttribute('data-outline');
+          document
+            .getElementById(`array${stack[0]}`)
+            .removeAttribute('data-outline', '');
+          stack.shift();
+          document
+            .getElementById(`img${stack[0]}`)
+            .parentNode.setAttribute('data-outline', '');
+          document
+            .getElementById(`array${stack[0]}`)
+            .setAttribute('data-outline', '');
+        }
+      }
+    }
+  });
 
 /**
  * @type {observable}
