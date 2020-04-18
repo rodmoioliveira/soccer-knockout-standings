@@ -156,26 +156,25 @@ let trajectory = [];
 
 /**
  * @description Obtém o rastro de indexes de um time.
- * @param {string} key Nome da chave dentro do objeto positions.
+ * @param {number} i Index do vértice.
  */
-const getTrajectory = key => {
-  let index = positions[key];
-  let path = [index];
-  const { name: winner } = mataMata[index];
+const getTrajectory = i => {
+  let path = [i];
+  const { name: winner } = mataMata[i];
 
   if (winner) {
-    while (right(index) < mataMata.length || left(index) < mataMata.length) {
-      const l = mataMata[left(index)];
-      const r = mataMata[right(index)];
+    while (right(i) < mataMata.length || left(i) < mataMata.length) {
+      const l = mataMata[left(i)];
+      const r = mataMata[right(i)];
 
       if (l.name === winner) {
-        index = left(index);
-        path.push(index);
+        i = left(i);
+        path.push(i);
       }
 
       if (r.name === winner) {
-        index = right(index);
-        path.push(index);
+        i = right(i);
+        path.push(i);
       }
     }
 
@@ -206,25 +205,24 @@ const removePath = i => {
 
 /**
  * @description Projeta o caminho de um time pelo heap.
- * @param {string} key Nome da chave dentro do objeto positions.
+ * @param {number} i Index do vértice.
  */
-const projectPath = key => {
-  let index = positions[key];
-  const { win, name, src } = mataMata[index];
-  const nameToClimb = win ? name : mataMata[sibling(index)].name;
-  const srcToClimb = win ? src : mataMata[sibling(index)].src;
-  const nameToFall = !win ? name : mataMata[sibling(index)].name;
+const projectPath = i => {
+  const { win, name, src } = mataMata[i];
+  const nameToClimb = win ? name : mataMata[sibling(i)].name;
+  const srcToClimb = win ? src : mataMata[sibling(i)].src;
+  const nameToFall = !win ? name : mataMata[sibling(i)].name;
   const trailIndex = [];
   const trailName = [];
 
-  while (index !== 0) {
-    const p = parent(index);
+  while (i !== 0) {
+    const p = parent(i);
     const { name: pName, src: pSrc } = mataMata[p];
     if (pName) {
       trailIndex.push(p);
       trailName.push({ name: pName, src: pSrc });
     }
-    index = p;
+    i = p;
   }
 
   trailName.forEach((n, i) => {
@@ -237,11 +235,9 @@ const projectPath = key => {
 
 /**
  * @description Transforma um time em vencedor ou em perdedor.
- * @param {string} key Nome da chave dentro do objeto positions.
+ * @param {number} i Index do vértice.
  */
-const toogleWinner = key => {
-  const i = positions[key];
-
+const toogleWinner = i => {
   if (mataMata[i].name) {
     const status = mataMata[i].win;
     const sib = sibling(i);
@@ -331,9 +327,9 @@ of(
   )
   .subscribe(val => {
     if (val.position) {
-      toogleWinner(val.position);
-      projectPath(val.position);
-      getTrajectory('campeao');
+      toogleWinner(val.index);
+      projectPath(val.index);
+      getTrajectory(positions.campeao);
       prevTrajectory.forEach(removePath);
       trajectory.forEach(displayPath);
     }
