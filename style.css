@@ -52,7 +52,6 @@
 
 * {
   font-family: 'Open Sans', sans-serif;
-  /* outline: 1px dashed #111; */
 }
 
 .title {
@@ -123,8 +122,13 @@
   background-color: var(--trajectory);
 }
 
+[data-array-key] .team-img {
+  height: calc(var(--heap-height) / 1.5);
+  width: auto;
+}
+
 /* ======================================== */
-/* Mata-mata e blocos */
+/* Containers e blocos */
 /* ======================================== */
 
 .knockouts {
@@ -468,11 +472,6 @@
   height: var(--team-img-height);
   width: auto;
   transition: all var(--animation-duration) ease;
-}
-
-[data-array-key] .team-img {
-  height: calc(var(--heap-height) / 1.5);
-  width: auto;
 }
 
 [data-win='false'][data-played='true'] .team-img {
