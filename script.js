@@ -1,5 +1,5 @@
 const {
-  operators: { mergeMap, map, startWith },
+  operators: { mergeMap, map, startWith, filter, distinctUntilChanged, scan },
   fromEvent,
   of,
 } = rxjs;
@@ -301,6 +301,46 @@ const render = arr => {
     }
   });
 };
+
+/**
+ * @description Aplica ou remove highlights.
+ * @param {string} action 'setAttribute' || 'removeAttribute'.
+ * @param {number} id Id do elemento.
+ */
+const highlights = (action, id) => {
+  document.getElementById(`img${id}`).parentNode[action]('data-outline', '');
+  document.getElementById(`array${id}`)[action]('data-outline', '');
+};
+
+/**
+ * @type {observable}
+ * @description Observável para os highlights dos vértices.
+ */
+fromEvent(document, 'mousemove')
+  .pipe(
+    map(({ path }) => path[0].getAttribute('id')),
+    map(id => (id ? parseInt(id.replace(/[a-zA-Z-]/g, ''), 10) : null)),
+    distinctUntilChanged(),
+    scan((acc, cur) => acc.concat(cur), [])
+  )
+  .subscribe(stack => {
+    if (!stack[0]) {
+      stack.pop();
+    } else {
+      highlights('setAttribute', stack[0]);
+      if (stack.length > 1) {
+        if (!stack[1]) {
+          stack.pop();
+          highlights('removeAttribute', stack[0]);
+          stack.pop();
+        } else {
+          highlights('removeAttribute', stack[0]);
+          stack.shift();
+          highlights('setAttribute', stack[0]);
+        }
+      }
+    }
+  });
 
 /**
  * @type {observable}
