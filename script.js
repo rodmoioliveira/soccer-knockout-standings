@@ -209,26 +209,27 @@ const removePath = i => {
  */
 const projectPath = i => {
   const { win, name, src } = mataMata[i];
-  const nameToClimb = win ? name : mataMata[sibling(i)].name;
-  const srcToClimb = win ? src : mataMata[sibling(i)].src;
-  const nameToFall = !win ? name : mataMata[sibling(i)].name;
-  const trailIndex = [];
-  const trailName = [];
+  const { name: nameToClimb, src: srcToClimb } = win
+    ? { name, src }
+    : mataMata[sibling(i)];
+  const { name: nameToFall } = !win ? { name } : mataMata[sibling(i)];
+  const indexes = [];
+  const names = [];
 
   while (i !== 0) {
     const p = parent(i);
     const { name: pName, src: pSrc } = mataMata[p];
     if (pName) {
-      trailIndex.push(p);
-      trailName.push({ name: pName, src: pSrc });
+      indexes.push(p);
+      names.push({ name: pName, src: pSrc });
     }
     i = p;
   }
 
-  trailName.forEach((n, i) => {
+  names.forEach((n, i) => {
     if (n.name === nameToFall || n.name === nameToClimb) {
-      mataMata[trailIndex[i]].name = nameToClimb;
-      mataMata[trailIndex[i]].src = srcToClimb;
+      mataMata[indexes[i]].name = nameToClimb;
+      mataMata[indexes[i]].src = srcToClimb;
     }
   });
 };
