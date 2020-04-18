@@ -94,6 +94,7 @@ const mataMata = [
     el: document.getElementById(`id${i}`),
     arrayEl: document.getElementById(`array${i}`),
     imgEl: document.getElementById(`img${i}`),
+    imgArray: document.getElementById(`array-img${i}`),
   };
 });
 let prevTrajectory = [];
@@ -220,6 +221,8 @@ const render = arr => {
     if (node.src) {
       node.imgEl.setAttribute('src', node.src);
       node.imgEl.removeAttribute('data-no-src');
+      node.imgArray.setAttribute('src', node.src);
+      node.imgArray.removeAttribute('data-no-src');
     }
   });
 };
