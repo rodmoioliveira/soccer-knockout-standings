@@ -15,3 +15,4 @@ https://rodmoioliveira.github.io/soccer-knockout-standings/
 - https://en.wikipedia.org/wiki/Heap_(data_structure)
 - https://www.cs.cmu.edu/~adamchik/15-121/lectures/Binary%20Heaps/heaps.html
 - https://www.geeksforgeeks.org/heap-data-structure/
+- https://repl.it/@rodmoioliveira/heap
