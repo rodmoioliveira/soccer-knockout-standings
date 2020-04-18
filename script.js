@@ -313,22 +313,20 @@ of(
   .pipe(
     mergeMap(div =>
       fromEvent(div, 'click').pipe(
-        map(() => {
-          const position =
-            div.getAttribute('data-key') || div.getAttribute('data-array-key');
-          return {
-            index: positions[position],
-            position,
-          };
-        })
+        map(
+          () =>
+            positions[
+              div.getAttribute('data-key') || div.getAttribute('data-array-key')
+            ]
+        )
       )
     ),
-    startWith({ position: null })
+    startWith(null)
   )
-  .subscribe(val => {
-    if (val.position) {
-      toogleWinner(val.index);
-      projectPath(val.index);
+  .subscribe(i => {
+    if (i) {
+      toogleWinner(i);
+      projectPath(i);
       getTrajectory(positions.campeao);
       prevTrajectory.forEach(removePath);
       trajectory.forEach(displayPath);
