@@ -16,6 +16,7 @@
   --title-margin: 2rem;
   --animation-duration: 300ms;
   --border-radius: 2px;
+  --highlight: lightpink;
 }
 
 @media (min-width: 768px) {
@@ -67,7 +68,7 @@
 /* ======================================== */
 
 .indexes {
-  margin-top: 15px;
+  margin-top: 40px;
 }
 
 .array {
@@ -129,6 +130,49 @@
 }
 
 /* ======================================== */
+/* Highlights */
+/* ======================================== */
+
+[data-index-key][data-outline] {
+  transform: translateY(7%);
+  background: none !important;
+  position: relative;
+}
+
+[data-index-key][data-outline]:after {
+  content: '';
+  width: 0.2vw;
+  height: 1.3vw;
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: -50%;
+  transform: translateX(-50%);
+  background: var(--highlight);
+}
+
+[data-index-key][data-outline]:before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0.4vw 0.8vw 0.4vw;
+  border-color: transparent transparent var(--highlight) transparent;
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: -10%;
+  transform: translateX(-50%) rotate(180deg);
+}
+
+[data-outline] {
+  background: url(
+  data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkYGBg+L/t4H9GL3tGMI3C8bJnZCSoAgAMdB7vCvltpwAAAABJRU5ErkJggg==
+   )
+    repeat !important;
+}
+
+/* ======================================== */
 /* Containers e blocos */
 /* ======================================== */
 
@@ -169,13 +213,6 @@
   font-weight: 700;
   cursor: pointer;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-}
-
-[data-outline] {
-  background: url(
-  data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkYGBg+L/t4H9GL3tGMI3C8bJnZCSoAgAMdB7vCvltpwAAAABJRU5ErkJggg==
-   )
-    repeat !important;
 }
 
 [data-win='false'][data-played='true'] {

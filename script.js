@@ -310,6 +310,7 @@ const render = arr => {
 const highlights = (action, id) => {
   document.getElementById(`img${id}`).parentNode[action]('data-outline', '');
   document.getElementById(`array${id}`)[action]('data-outline', '');
+  document.getElementById(`index${id}`)[action]('data-outline', '');
 };
 
 /**
