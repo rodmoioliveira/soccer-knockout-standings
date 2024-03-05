@@ -319,7 +319,7 @@ const highlights = (action, id) => {
  */
 fromEvent(document, 'mousemove')
   .pipe(
-    map(({ path }) => path[0].getAttribute('id')),
+    map(({ target }) => target.getAttribute('id')),
     map(id => (id ? parseInt(id.replace(/[a-zA-Z-]/g, ''), 10) : null)),
     distinctUntilChanged(),
     scan((acc, cur) => acc.concat(cur), [])
