@@ -1,5 +1,5 @@
 const {
-  operators: { mergeMap, map, startWith, filter, distinctUntilChanged, scan },
+  operators: { mergeMap, map, startWith, filter, distinctUntilChanged, scan, tap },
   fromEvent,
   of,
 } = rxjs;
@@ -116,22 +116,22 @@ const mataMata = [
   team({ name: null, src: null }),
   team({ name: null, src: null }),
   team({ name: null, src: null }),
-  team({ name: 'Corinthians', src: 'images/corinthians.png' }),
-  team({ name: 'Santos', src: 'images/santos.png' }),
-  team({ name: 'São Paulo', src: 'images/saopaulo.png' }),
-  team({ name: 'Internacional', src: 'images/internacional.svg' }),
-  team({ name: 'Grêmio', src: 'images/gremio.svg' }),
-  team({ name: 'Bahia', src: 'images/bahia.png' }),
-  team({ name: 'Ponte Preta', src: 'images/pontepreta.png' }),
-  team({ name: 'Oeste', src: 'images/oeste.png' }),
-  team({ name: 'Guarani', src: 'images/guarani.png' }),
-  team({ name: 'Palmeiras', src: 'images/palmeiras.png' }),
-  team({ name: 'Flamengo', src: 'images/flamengo.png' }),
-  team({ name: 'Fluminense', src: 'images/fluminense.png' }),
-  team({ name: 'Botafogo', src: 'images/botafogo.png' }),
-  team({ name: 'Atlético-Mg', src: 'images/atleticomg.png' }),
-  team({ name: 'Bangu', src: 'images/bangu.png' }),
-  team({ name: 'Portuguesa', src: 'images/portuguesa.png' }),
+  team({ name: "Corinthians", src: "images/corinthians.png" }),
+  team({ name: "Santos", src: "images/santos.png" }),
+  team({ name: "São Paulo", src: "images/saopaulo.png" }),
+  team({ name: "Internacional", src: "images/internacional.svg" }),
+  team({ name: "Grêmio", src: "images/gremio.svg" }),
+  team({ name: "Bahia", src: "images/bahia.png" }),
+  team({ name: "Ponte Preta", src: "images/pontepreta.png" }),
+  team({ name: "Oeste", src: "images/oeste.png" }),
+  team({ name: "Guarani", src: "images/guarani.png" }),
+  team({ name: "Palmeiras", src: "images/palmeiras.png" }),
+  team({ name: "Flamengo", src: "images/flamengo.png" }),
+  team({ name: "Fluminense", src: "images/fluminense.png" }),
+  team({ name: "Botafogo", src: "images/botafogo.png" }),
+  team({ name: "Atlético-Mg", src: "images/atleticomg.png" }),
+  team({ name: "Bangu", src: "images/bangu.png" }),
+  team({ name: "Portuguesa", src: "images/portuguesa.png" }),
 ].map((pos, i) => {
   return {
     ...pos,
@@ -190,8 +190,8 @@ const getTrajectory = i => {
  * @param {number} i Index do vértice.
  */
 const displayPath = i => {
-  mataMata[i].el.setAttribute('data-trajectory', '');
-  mataMata[i].arrayEl.setAttribute('data-trajectory', '');
+  mataMata[i].el.setAttribute("data-trajectory", "");
+  mataMata[i].arrayEl.setAttribute("data-trajectory", "");
 };
 
 /**
@@ -199,8 +199,8 @@ const displayPath = i => {
  * @param {number} i Index do vértice.
  */
 const removePath = i => {
-  mataMata[i].el.removeAttribute('data-trajectory');
-  mataMata[i].arrayEl.removeAttribute('data-trajectory');
+  mataMata[i].el.removeAttribute("data-trajectory");
+  mataMata[i].arrayEl.removeAttribute("data-trajectory");
 };
 
 /**
@@ -251,17 +251,17 @@ const toogleWinner = i => {
     mataMata[sib].played = true;
     mataMata[p] = mataMata[p].name
       ? {
-          ...mataMata[p],
-          name: mataMata[i].name,
-          src: mataMata[i].src,
-        }
+        ...mataMata[p],
+        name: mataMata[i].name,
+        src: mataMata[i].src,
+      }
       : {
-          ...mataMata[p],
-          name: mataMata[i].name,
-          src: mataMata[i].src,
-          win: false,
-          played: false,
-        };
+        ...mataMata[p],
+        name: mataMata[i].name,
+        src: mataMata[i].src,
+        win: false,
+        played: false,
+      };
   }
 };
 
@@ -271,33 +271,33 @@ const toogleWinner = i => {
  */
 const render = arr => {
   arr.forEach((node, i) => {
-    node.el.setAttribute('data-win', node.win);
-    node.el.setAttribute('data-played', node.played);
-    node.arrayEl.setAttribute('data-win', node.win);
-    node.arrayEl.setAttribute('data-played', node.played);
+    node.el.setAttribute("data-win", node.win);
+    node.el.setAttribute("data-played", node.played);
+    node.arrayEl.setAttribute("data-win", node.win);
+    node.arrayEl.setAttribute("data-played", node.played);
     node.el[
       node.name && arr[sibling(i)].name && i !== 0
-        ? 'removeAttribute'
-        : 'setAttribute'
-    ]('data-disable', '');
+        ? "removeAttribute"
+        : "setAttribute"
+    ]("data-disable", "");
     node.arrayEl[
       node.name && arr[sibling(i)].name && i !== 0
-        ? 'removeAttribute'
-        : 'setAttribute'
-    ]('data-disable', '');
+        ? "removeAttribute"
+        : "setAttribute"
+    ]("data-disable", "");
 
     if (i === 0 && node.name) {
-      node.el.setAttribute('data-win', true);
-      node.el.setAttribute('data-played', true);
-      node.arrayEl.setAttribute('data-win', true);
-      node.arrayEl.setAttribute('data-played', true);
+      node.el.setAttribute("data-win", true);
+      node.el.setAttribute("data-played", true);
+      node.arrayEl.setAttribute("data-win", true);
+      node.arrayEl.setAttribute("data-played", true);
     }
 
     if (node.src) {
-      node.imgEl.setAttribute('src', node.src);
-      node.imgEl.removeAttribute('data-no-src');
-      node.imgArray.setAttribute('src', node.src);
-      node.imgArray.removeAttribute('data-no-src');
+      node.imgEl.setAttribute("src", node.src);
+      node.imgEl.removeAttribute("data-no-src");
+      node.imgArray.setAttribute("src", node.src);
+      node.imgArray.removeAttribute("data-no-src");
     }
   });
 };
@@ -308,36 +308,37 @@ const render = arr => {
  * @param {number} id Id do elemento.
  */
 const highlights = (action, id) => {
-  document.getElementById(`img${id}`).parentNode[action]('data-outline', '');
-  document.getElementById(`array${id}`)[action]('data-outline', '');
-  document.getElementById(`index${id}`)[action]('data-outline', '');
+  document.getElementById(`img${id}`).parentNode[action]("data-outline", "");
+  document.getElementById(`array${id}`)[action]("data-outline", "");
+  document.getElementById(`index${id}`)[action]("data-outline", "");
 };
 
 /**
  * @type {observable}
  * @description Observável para os highlights dos vértices.
  */
-fromEvent(document, 'mousemove')
+fromEvent(document, "mousemove")
   .pipe(
-    map(({ target }) => target.getAttribute('id')),
-    map(id => (id ? parseInt(id.replace(/[a-zA-Z-]/g, ''), 10) : null)),
+    filter(({ target }) => target),
+    map(({ target }) => target.getAttribute("id")),
+    map(id => (id ? parseInt(id.replace(/[a-zA-Z-]/g, ""), 10) : null)),
     distinctUntilChanged(),
-    scan((acc, cur) => acc.concat(cur), [])
+    scan((acc, cur) => acc.concat(cur), []),
   )
   .subscribe(stack => {
     if (!stack[0]) {
       stack.pop();
     } else {
-      highlights('setAttribute', stack[0]);
+      highlights("setAttribute", stack[0]);
       if (stack.length > 1) {
         if (!stack[1]) {
           stack.pop();
-          highlights('removeAttribute', stack[0]);
+          highlights("removeAttribute", stack[0]);
           stack.pop();
         } else {
-          highlights('removeAttribute', stack[0]);
+          highlights("removeAttribute", stack[0]);
           stack.shift();
-          highlights('setAttribute', stack[0]);
+          highlights("setAttribute", stack[0]);
         }
       }
     }
@@ -349,21 +350,21 @@ fromEvent(document, 'mousemove')
  * o mata-mata.
  */
 of(
-  ...[...document.querySelectorAll('[data-key]')],
-  ...[...document.querySelectorAll('[data-array-key]')]
+  ...[...document.querySelectorAll("[data-key]")],
+  ...[...document.querySelectorAll("[data-array-key]")],
 )
   .pipe(
     mergeMap(div =>
-      fromEvent(div, 'click').pipe(
+      fromEvent(div, "click").pipe(
         map(
           () =>
             positions[
-              div.getAttribute('data-key') || div.getAttribute('data-array-key')
-            ]
-        )
+              div.getAttribute("data-key") || div.getAttribute("data-array-key")
+            ],
+        ),
       )
     ),
-    startWith(null)
+    startWith(null),
   )
   .subscribe(i => {
     if (i) {
