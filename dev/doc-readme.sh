@@ -39,7 +39,7 @@ backlink() {
 readme() {
   cat <<EOF >|README.md
 <p align="center">
-  <img src="https://raw.githubusercontent.com/rodmoioliveira/soccer-knockout-standings/main/images/knockout_heap2.png">
+  <img src="https://raw.githubusercontent.com/rodmoioliveira/soccer-knockout-standings/main/docs/images/knockout_heap2.png">
 </p>
 
 # soccer-knockout-standings
