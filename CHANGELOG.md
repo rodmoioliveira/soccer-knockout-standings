@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.0](https://github.com/rodmoioliveira/soccer-knockout-standings/compare/0.3.0...0.4.0) - 2025-01-24
+
+[a7471cc](https://github.com/rodmoioliveira/soccer-knockout-standings/commit/a7471cceaa9198e7e7190d5f686bfb6ea1522a15)...[77f43dc](https://github.com/rodmoioliveira/soccer-knockout-standings/commit/77f43dc8cd39c0c6e8ccf5a21f6394ecff61ac89)
+
+### Bug Fixes
+
+- [77f43dc](https://github.com/rodmoioliveira/soccer-knockout-standings/commit/77f43dc8cd39c0c6e8ccf5a21f6394ecff61ac89) - Fix image in README
+
 ## [0.3.0](https://github.com/rodmoioliveira/soccer-knockout-standings/compare/0.2.0...0.3.0) - 2025-01-24
 
 [65c8506](https://github.com/rodmoioliveira/soccer-knockout-standings/commit/65c8506905c5d0a8e41c3e82d930e7d617945b2d)...[a7471cc](https://github.com/rodmoioliveira/soccer-knockout-standings/commit/a7471cceaa9198e7e7190d5f686bfb6ea1522a15)
